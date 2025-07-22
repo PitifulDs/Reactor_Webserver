@@ -5,7 +5,7 @@
 
 Epoll::Epoll()
 {
-    if( epollfd_ = epoll_create(1)) // 创建epoll句柄（红黑树）。
+    if( (epollfd_ = epoll_create(1)) == -1 ) // 创建epoll句柄（红黑树）。
     {
         printf("epoll_create error(%d).\n", errno);
         exit(-1);
