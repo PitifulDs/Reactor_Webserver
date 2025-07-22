@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -10,6 +12,7 @@
 #include <unistd.h>
 #include "Channel.h"
 
+class Channel;
 // Epoll 类
 class Epoll{
 

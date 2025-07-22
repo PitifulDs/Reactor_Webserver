@@ -37,7 +37,7 @@ int main(int argc,char *argv[])
 
     Epoll ep;
     // ep.addfd(servsock.fd(), EPOLLIN);   // 添加listenfd到epollfd中。
-    Channel *servchannel = new Channel(&ep, servsock.fd());
+    Channel *servchannel = new Channel(&ep, servsock.fd(), true);
     servchannel->enablereading();
     // std::vector<epoll_event> evs;   // 存放epoll_wait()返回的事件。
 
@@ -51,6 +51,8 @@ int main(int argc,char *argv[])
         // for (int ii=0;ii<infds;ii++)       // 遍历epoll返回的数组evs。
         for (auto &ch : channels)
         {
+             ch->hanldleEvent(&servsock);
+            /*
             if (ch->revents() & EPOLLRDHUP)                     // 对方已关闭，有些系统检测不到，可以使用EPOLLIN，recv()返回0。
             {
                 printf("client(eventfd=%d) disconnected.\n",ch->fd());
@@ -68,8 +70,7 @@ int main(int argc,char *argv[])
                     printf("accept client(fd=%d,ip=%s,port=%d) ok.\n", clientsock->fd(), clientaddr.ip(), clientaddr.port());
 
                     // 为新客户端连接准备读事件，并添加到epoll中。
-                    // ep.addfd(clientsock->fd(), EPOLLIN | EPOLLET); //   边缘触发。
-                    Channel *clientchannel = new Channel(&ep, clientsock->fd());
+                    Channel *clientchannel = new Channel(&ep, clientsock->fd(), false);
                     clientchannel->useet();
                     clientchannel->enablereading();
                     
@@ -114,6 +115,7 @@ int main(int argc,char *argv[])
                 printf("client(eventfd=%d) error.\n",ch->fd());
                 close(ch->fd());            // 关闭客户端的fd。
             }
+                */
         }
     }
 
