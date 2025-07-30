@@ -1,4 +1,4 @@
-### 增加Acceptor类
+### 增加Connection类
 channel(通道),封装了监听fd和客户端连接的fd
 监听fd与客户端连接fd的功能是不同的
 监听的fd用于监听端口，客户端连接的fd用于通信

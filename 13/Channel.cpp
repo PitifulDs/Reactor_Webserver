@@ -1,5 +1,5 @@
 #include "Channel.h"
-
+#include "Connection.h"
 Channel::Channel(EventLoop *loop, int fd) : loop_(loop), fd_(fd)
 {
 
@@ -96,11 +96,12 @@ void Channel::newconnection(Socket *servsock) // 处理新客户端连接请求
 
     printf("accept client(fd=%d,ip=%s,port=%d) ok.\n", clientsock->fd(), clientaddr.ip(), clientaddr.port());
 
-    // 为新客户端连接准备读事件，并添加到epoll中。
-    Channel *clientchannel = new Channel(loop_, clientsock->fd()); // 这里new出来没有释放，以后再解决
-    clientchannel->setreadcallback(std::bind(&Channel::onmessage, clientchannel));
-    clientchannel->useet();
-    clientchannel->enablereading();
+    // // 为新客户端连接准备读事件，并添加到epoll中。
+    // Channel *clientchannel = new Channel(loop_, clientsock->fd()); // 这里new出来没有释放，以后再解决
+    // clientchannel->setreadcallback(std::bind(&Channel::onmessage, clientchannel));
+    // clientchannel->useet();
+    // clientchannel->enablereading();
+    Connection *conne = new Connection(loop_, clientsock); // 这里new出来没有释放，以后再解决
 }
 
 void Channel::onmessage() // 处理对端发送过来的消息
