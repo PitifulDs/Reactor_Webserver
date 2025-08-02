@@ -34,6 +34,12 @@ void Acceptor::newconnection() // 处理新客户端连接请求
 
     printf("accept client(fd=%d,ip=%s,port=%d) ok.\n", clientsock->fd(), clientaddr.ip(), clientaddr.port());
 
+    // 在TcpServer中实现
+    // Connection *conne = new Connection(loop_, clientsock); // 这里new出来没有释放，以后再解决
+    newconnectioncb_(clientsock);
+}
 
-    Connection *conne = new Connection(loop_, clientsock); // 这里new出来没有释放，以后再解决
+void Acceptor::setnewconnectioncb(std::function<void(Socket *)> fn) // 设置处理新客户端连接请求的回调函数
+{
+    newconnectioncb_ = fn;
 }
