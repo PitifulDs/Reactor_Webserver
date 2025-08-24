@@ -29,3 +29,8 @@ const char* Buffer::data()
 {
     return buf_.data();
 }
+
+void Buffer::erase(size_t pose, size_t nn)
+{
+    buf_.erase(pose, nn);
+}

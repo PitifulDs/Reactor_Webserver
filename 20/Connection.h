@@ -17,6 +17,7 @@ private:
 
     std::function<void(Connection*)> closecallback_;    // 关闭fd_的回调函数，将回调TcpServer::closeconnection()
     std::function<void(Connection*)> errorcallback_;    // 错误fd_的回调函数，将回调TcpServer::errorconnection()
+    std::function<void(Connection*, std::string)> onmessagecallback_;   // 处理报文的回调函数，将回调TcpServer::onmessage()
 public:
     Connection(EventLoop *loop, Socket *clientsock);
     ~Connection();
@@ -32,6 +33,6 @@ public:
 
     void setclosecallback(std::function<void(Connection*)> fn); // 设置关闭fd_的回调函数
     void seterrorcallback(std::function<void(Connection*)> fn); // 设置错误fd_的回调函数
-
+    void setonmessagecallback(std::function<void(Connection*, std::string)> fn);    //  设置处理报文的回调函数
 
 };

@@ -20,5 +20,6 @@ public:
     void newconnection(Socket *clientsock); // 处理新客户端连接请求
     void closeconnection(Connection *conn); // 处理客户端断开连接, 在connection类中调用
     void errorconnection(Connection *conn); // 处理客户端连接错误，在connection类中调用
+    void onmessage(Connection *conn, std::string message); //  处理客户端发来的消息报文，在connection类中调用
 };
 

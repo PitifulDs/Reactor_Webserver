@@ -1,2 +1,1 @@
-### 增加缓冲区BUffer类
-在Reactor模型中，每个Connection对象都拥有InputBuffer和SendBuffer两个缓冲区对象，用于存放输入数据及待发送数据。
+### 使用接受缓冲区inputBuffer
